@@ -43,7 +43,7 @@ app.use('/users', userRoutes);
 app.use('/captains', captainRoutes);
 app.use('/maps', mapsRoutes);
 app.use('/rides', rideRoutes);
-
+app.get("/",(req,res)=>{res.status(200).json({"message":"hellow from azure"})})
 
 
 
