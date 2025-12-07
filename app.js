@@ -19,6 +19,9 @@ app.use(
       "http://localhost:5173",
       "https://uber-frontend-six-pink.vercel.app/",
       "https://uber-frontend-six-pink.vercel.app",
+      "https://uber-frontend-navy.vercel.app/",
+      "https://uber-frontend-navy.vercel.app",
+      "*"
     ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
