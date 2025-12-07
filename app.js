@@ -17,15 +17,12 @@ app.use(
     origin: [
       "https://j9r4m1mn-5173.asse.devtunnels.ms",
       "http://localhost:5173",
-
-
+      "https://uber-frontend-six-pink.vercel.app/",
+      "https://uber-frontend-six-pink.vercel.app",
     ],
     methods: ["GET", "POST", "DELETE", "PUT"],
-    allowedHeaders: ["Content-Type", "Authorization",
-        
-      
-    ],
-    credentials:true
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 app.use(express.json());
