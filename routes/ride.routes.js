@@ -9,7 +9,7 @@ router.post('/create',
     authMiddleware.authUser,
     body('pickup').isString().isLength({ min: 3 }).withMessage('Invalid pickup address'),
     body('destination').isString().isLength({ min: 3 }).withMessage('Invalid destination address'),
-    body('vehicleType').isString().isIn([ 'auto', 'car', 'moto' ]).withMessage('Invalid vehicle type'),
+    body('vehicleType').isString().isIn(['auto', 'car', 'moto']).withMessage('Invalid vehicle type'),
     rideController.createRide
 )
 
@@ -40,5 +40,16 @@ router.post('/end-ride',
 )
 
 
+
+router.get('/new-rides',
+    authMiddleware.authCaptain,
+    rideController.getNewRides
+)
+
+router.get('/:id',
+    authMiddleware.authUser,
+    // body('rideId').isMongoId().withMessage('Invalid ride id'), // Removed body validation as it's a GET param
+    rideController.getRideById
+)
 
 module.exports = router;

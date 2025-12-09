@@ -73,11 +73,27 @@ module.exports.getCaptainProfile = async (req, res, next) => {
 }
 
 module.exports.logoutCaptain = async (req, res, next) => {
-    const token = req.cookies.token || req.headers.authorization?.split(' ')[ 1 ];
+    const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
 
     await blackListTokenModel.create({ token });
 
     res.clearCookie('token');
 
     res.status(200).json({ message: 'Logout successfully' });
+}
+module.exports.updateLocation = async (req, res, next) => {
+    const { lat, lng } = req.body;
+
+    if (!lat || !lng) {
+        return res.status(400).json({ message: 'Invalid location data' });
+    }
+
+    await captainModel.findByIdAndUpdate(req.captain._id, {
+        location: {
+            ltd: lat,
+            lng: lng
+        }
+    });
+
+    res.status(200).json({ message: 'Location updated successfully' });
 }

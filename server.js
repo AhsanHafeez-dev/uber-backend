@@ -1,12 +1,52 @@
-const http = require('http');
-const app = require('./app');
-const { initializeSocket } = require('./socket');
-const port = process.env.PORT || 3000;
+const dotenv = require('dotenv');
+dotenv.config();
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const cookieParser = require('cookie-parser');
+const connectToDb = require('./db/db');
+const userRoutes = require('./routes/user.routes');
+const captainRoutes = require('./routes/captain.routes');
+const mapsRoutes = require('./routes/maps.routes');
+const rideRoutes = require('./routes/ride.routes');
 
-const server = http.createServer(app);
+connectToDb();
 
-initializeSocket(server);
+app.use(
+  cors({
+    origin: [
+      "https://j9r4m1mn-5173.asse.devtunnels.ms",
+      "http://localhost:5173",
+      "http://localhost:5173/",
+      "https://uber-frontend-six-pink.vercel.app/",
+      "https://uber-frontend-six-pink.vercel.app",
+      "https://uber-frontend-navy.vercel.app/",
+      "https://uber-frontend-navy.vercel.app",
+      "*",
+    ],
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-server.listen(port,"0.0.0.0", () => {
-    console.log(`Server is running on port ${port}`);
+
+
+app.get('/', (req, res) => {
+  res.send('Hello World');
 });
+
+
+app.use('/users', userRoutes);
+app.use('/captains', captainRoutes);
+app.use('/maps', mapsRoutes);
+app.use('/rides', rideRoutes);
+app.get("/", (req, res) => { res.status(200).json({ "message": "hellow from azure" }) })
+
+
+
+module.exports = app;
+
