@@ -66,6 +66,14 @@ const captainSchema = new mongoose.Schema({
         lng: {
             type: Number,
         }
+    },
+    earned: {
+        type: Number,
+        default:0
+    },
+    hoursOnline: {
+        type: Number,
+        default:0
     }
 })
 

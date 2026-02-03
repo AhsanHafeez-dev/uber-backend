@@ -11,7 +11,8 @@ module.exports.registerCaptain = async (req, res, next) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { fullname, email, password, vehicle } = req.body;
+    const { fullname, email, password, vehicle, earned, hoursOnline } =
+      req.body;
 
     const isCaptainAlreadyExist = await captainModel.findOne({ email });
 
@@ -30,7 +31,9 @@ module.exports.registerCaptain = async (req, res, next) => {
         color: vehicle.color,
         plate: vehicle.plate,
         capacity: vehicle.capacity,
-        vehicleType: vehicle.vehicleType
+        vehicleType: vehicle.vehicleType,
+        hoursOnline,
+        earned
     });
 
     const token = captain.generateAuthToken();
@@ -38,6 +41,9 @@ module.exports.registerCaptain = async (req, res, next) => {
     res.status(201).json({ token, captain });
 
 }
+
+
+
 
 module.exports.loginCaptain = async (req, res, next) => {
 
@@ -68,9 +74,13 @@ module.exports.loginCaptain = async (req, res, next) => {
     res.status(200).json({ token, captain });
 }
 
+
+
 module.exports.getCaptainProfile = async (req, res, next) => {
     res.status(200).json({ captain: req.captain });
 }
+
+
 
 module.exports.logoutCaptain = async (req, res, next) => {
     const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
@@ -81,6 +91,11 @@ module.exports.logoutCaptain = async (req, res, next) => {
 
     res.status(200).json({ message: 'Logout successfully' });
 }
+
+
+
+
+
 module.exports.updateLocation = async (req, res, next) => {
     const { lat, lng } = req.body;
 

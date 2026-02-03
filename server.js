@@ -22,12 +22,12 @@ app.use(
       "https://uber-frontend-six-pink.vercel.app",
       "https://uber-frontend-navy.vercel.app/",
       "https://uber-frontend-navy.vercel.app",
-      "*",
+      "https://uber-frontend-i0535w433-ahsans-projects-6799ab6a.vercel.app/",
     ],
     methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
